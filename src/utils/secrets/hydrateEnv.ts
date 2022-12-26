@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import fs from 'fs'
+import { logAndThrowError } from '../logger/loggerHelpers'
 
 export const hydrateEnv = async () => {
   if (fs.existsSync('.env')) {
@@ -7,12 +8,20 @@ export const hydrateEnv = async () => {
   }
 
   if (!process.env.DEFAULT_REGION) {
-    // TODO: Add an error logger here
-    console.error('NO DEFAULT_REGION IN env')
+    logAndThrowError('Please provide DEFAULT_REGION in environment variables', {
+      name: 'Missing env variables',
+      message: 'Please provide DEFAULT_REGION in environment variables',
+    })
   }
 
   if (!process.env.WORDPRESS_PRODUCTS_TABLE_NAME) {
-    // TODO: Add an error logger here
-    console.error('NO WORDPRESS_PRODUCTS_TABLE_NAME IN env')
+    logAndThrowError(
+      'Please provide WORDPRESS_PRODUCTS_TABLE_NAME in environment variables',
+      {
+        name: 'Missing env variables',
+        message:
+          'Please provide WORDPRESS_PRODUCTS_TABLE_NAME in environment variables',
+      }
+    )
   }
 }
