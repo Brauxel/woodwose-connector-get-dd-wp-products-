@@ -10,4 +10,9 @@ export const hydrateEnv = async () => {
     // TODO: Add an error logger here
     console.error('NO DEFAULT_REGION IN env')
   }
+
+  if (!process.env.WORDPRESS_PRODUCTS_TABLE_NAME) {
+    // TODO: Add an error logger here
+    console.error('NO WORDPRESS_PRODUCTS_TABLE_NAME IN env')
+  }
 }
