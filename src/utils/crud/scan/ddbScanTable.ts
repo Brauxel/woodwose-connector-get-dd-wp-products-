@@ -1,23 +1,17 @@
-// Import required AWS SDK clients and commands for Node.js.
+import { QueryInput } from '@aws-sdk/client-dynamodb'
 import { ScanCommand } from '@aws-sdk/lib-dynamodb'
 import { ddbDocClient } from '../../../libs/ddbDocClient'
 
-export const scanTableInDynamoDb = async () => {
+export const scanTableInDynamoDb = async (tableName: string) => {
   try {
-    const params = {
-      TableName: process.env.WORDPRESS_PRODUCTS_TABLE_NAME,
-      //   ProjectionExpression: '#r, #y, title',
-      //   ExpressionAttributeNames: { '#r': 'rank', '#y': 'year' },
-      //   FilterExpression: 'title = :t and #y = :y and info.#r = :r',
-      //   ExpressionAttributeValues: {
-      //     ':r': 'MOVIE_RANK',
-      //     ':y': 'MOVIE_YEAR',
-      //     ':t': 'MOVIE_NAME',
-      //   },
+    const params: QueryInput = {
+      TableName: tableName,
     }
     const data = await ddbDocClient.send(new ScanCommand(params))
-    console.log('success', data.Items)
+
+    return data.Items
   } catch (err) {
+    // TODO: Use logger
     console.log('Error', err)
   }
 }
