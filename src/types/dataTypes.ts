@@ -2,7 +2,7 @@ export interface DynamoDbWordPressProduct {
   id: string
   slug: string
   name: string
-  variations: string[]
+  variations: Set<string>
   date_created_gmt: string
   date_modified_gmt: string
 }
