@@ -3,15 +3,12 @@ import {
   WordPressProduct,
   WordPressProductVariation,
 } from '../../types/dataTypes'
-import { queryTableInDynamoDb } from '../crud/query/ddbQueryTable'
+import { queryProductVariationWithId } from '../crud/query/ddbQueryTable'
 
 export const makeVariationsArray = async (variationIds: Set<string>) => {
   const variationsArray = []
   for (const item of variationIds) {
-    const data = await queryTableInDynamoDb(
-      process.env.WORDPRESS_PRODUCT_VARIATIONS_TABLE_NAME || '',
-      item
-    )
+    const data = await queryProductVariationWithId(item)
     if (data && data.length > 0) {
       variationsArray.push({
         ...(data[0] as WordPressProductVariation),
